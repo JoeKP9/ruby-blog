@@ -11,3 +11,31 @@
 }
 
 */
+.joes_button {
+  cursor: pointer;
+  color: white;
+  padding: auto;
+  margin: auto auto 5px;
+  width: 200px;
+  background-color: gray;
+}
+
+.joes_button:hover {
+  cursor: pointer;
+  color: grey;
+  padding: auto;
+  margin: auto auto 5px;
+  width: 200px;
+  background-color: black;
+}
+
+.topmargin {
+  margin-top: 5px;
+}
+.topmargin:hover {
+  margin-top: 5px;
+}
+
+h1 {
+  padding-top: 32px;
+}

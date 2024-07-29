@@ -11,6 +11,10 @@ class BlogPost < ApplicationRecord
     published_at.nil?
   end
   
+  def scheduled?
+    published_at? && published_at > Time.current
+  end
+
 end
 
 # BlogPosts.all

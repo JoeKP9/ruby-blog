@@ -1,5 +1,16 @@
-<%= button_to "Edit blog", edit_blog_post_path(@blog_post), method: :get if user_signed_in? %>
-
+<%= button_to "Edit blog", edit_blog_post_path(@blog_post), method: :get, class: "joes_button" if user_signed_in? %>
 <h1><%= @blog_post.title %></h1>
 
-<%= @blog_post.body %>
+<h3><%= @blog_post.body %></h3>
+
+<% if @blog_post.draft? %>
+    <h4 style="color:red;">
+<% elsif @blog_post.scheduled? %>
+    <h4 style="color:blue;">
+<% else %>
+    <h4>
+<% end %>
+
+<%= !@blog_post.draft? ? !@blog_post.scheduled? ? @blog_post.published_at : "Scheduled for: "+ @blog_post.published_at.to_s : "Draft*" %>
+
+</h4>

@@ -24,14 +24,14 @@
     <p class="alert"><%= alert %></p>
 
     <div>
-      <%= button_to "Home", root_path, method: :get %>
+      <%= button_to "Home", root_path, method: :get, class: "joes_button" %>
       <% if user_signed_in? %>
-        <%= button_to "Log out", destroy_user_session_path, method: :delete %>
-        <%= button_to "Profile", edit_user_registration_path, method: :get %>
-        <%= button_to "New blog", new_blog_post_path, method: :get %>
+        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "joes_button" %>
+        <%= button_to "Profile", edit_user_registration_path, method: :get, class: "joes_button" %>
+        <%= button_to "New blog", new_blog_post_path, method: :get, class: "joes_button" %>
       <% else %>
-        <%= button_to "Log in", new_user_session_path, method: :get %>
-        <%= button_to "Sign up", new_user_registration_path, method: :get %>
+        <%= button_to "Log in", new_user_session_path, method: :get, class: "joes_button" %>
+        <%= button_to "Sign up", new_user_registration_path, method: :get, class: "joes_button" %>
       <% end %>
     </div>
 
