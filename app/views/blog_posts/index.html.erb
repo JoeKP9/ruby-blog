@@ -1,12 +1,16 @@
+
 <h1>My blog</h1>
 <% @blog_posts.each do |blog_post| %>
-    <div>
+    <div class="BlogBox rounded-md bg-gray-100">
         <% if blog_post.draft? %>
-            <h3 style="color:red;">Draft:</h3>
+            <div class="rounded-md bg-red-100"><h3 class="text-red-400 BlogBoxTitle">Draft:</h3>
         <% elsif blog_post.scheduled? %>
-            <h3 style="color:Blue;">Scheduled for: <%= blog_post.published_at %></h3>
+            <div class="rounded-md bg-blue-100"><h3 class="text-blue-400 BlogBoxTitle">Scheduled for: <%= blog_post.published_at %></h3>
         <% end %>
-        <h2><%= link_to blog_post.title, blog_post %></h2>
-        <%= blog_post.body %> <br/><br/>
+        <h2 class="BlogBoxTitle" ><%= link_to blog_post.title, blog_post %></h2>
+        <%= blog_post.content %>
+    </div>
     </div>
 <% end %>
+
+<%== pagy_nav(@Pagy) if @Pagy.pages > 1 %>

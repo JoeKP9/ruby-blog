@@ -1,16 +1,23 @@
 <%= button_to "Edit blog", edit_blog_post_path(@blog_post), method: :get, class: "joes_button" if user_signed_in? %>
-<h1><%= @blog_post.title %></h1>
 
-<h3><%= @blog_post.body %></h3>
+<div style="text-align: center;display: inline-block;">
+    <h1><%= @blog_post.title %></h1>
+
+    <h3 style="text-align: center;display: inline-block;"><%= @blog_post.content %></h3>
+</div>
 
 <% if @blog_post.draft? %>
-    <h4 style="color:red;">
+    <div class="rounded-md bg-red-100" ><h4 class="text-red-400">
 <% elsif @blog_post.scheduled? %>
-    <h4 style="color:blue;">
+    <div class="rounded-md bg-blue-100" ><h4 class="text-blue-400">
 <% else %>
-    <h4>
+    <div class="rounded-md bg-gray-100" ><h4>
 <% end %>
 
-<%= !@blog_post.draft? ? !@blog_post.scheduled? ? @blog_post.published_at : "Scheduled for: "+ @blog_post.published_at.to_s : "Draft*" %>
+    <%= !@blog_post.draft? ? !@blog_post.scheduled? ? "Published at: "+ @blog_post.published_at.to_s : "Scheduled for: "+ @blog_post.published_at.to_s : "Draft" %>
+    <% if @blog_post.draft? %>
+        <%= button_to "Delete", @blog_post, method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "joes_button_red" %>
+    <% end %>
+</div>
 
 </h4>

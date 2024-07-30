@@ -13,13 +13,13 @@
     </div>
 
     <div>
-        <%= form.label :body %>
-        <%= form.text_area :body, class: "topmargin" %>
+        <%= form.label :content %>
+        <%= form.rich_text_area :content, class: "topmargin", style: "text-align: center;display: inline-block;width: 100%;" %>
     </div>
 
     <div>
         <%= form.label :published_at %>
-        <%= form.datetime_select :published_at, include_blank: true, selected: @blog_post.published_at || Date.current %>
+        <%= form.datetime_select :published_at, include_blank: true, selected: @blog_post.published_at || Time.current %>
                                                     
         <%# form.date_select(:published_at, include_blank: true, selected: Date.current, start_year: Date.today.year - 100, end_year: Date.today.year - 18) %>
         

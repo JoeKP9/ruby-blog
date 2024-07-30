@@ -3,17 +3,22 @@ class BlogPostsController < ApplicationController
   before_action :set_blog_post, only: [:show, :edit, :update, :destroy]
   
   def index
-    @blog_posts = user_signed_in? ? BlogPost.all : BlogPost.published
+    @blog_posts = user_signed_in? ? BlogPost.sorted : BlogPost.published.sorted
+    @Pagy, @blog_posts = pagy(@blog_posts)
   end
+
   def show
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path
   end
+
   def new
     @blog_post = BlogPost.new
   end
+
   def edit
   end
+
   def update
     if @blog_post.update(blog_post_params)
       redirect_to @blog_post
@@ -21,6 +26,7 @@ class BlogPostsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+
   def destroy
     if @blog_post.destroy()
       redirect_to root_path
@@ -28,6 +34,7 @@ class BlogPostsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+
   def create
     @blog_post = BlogPost.new(blog_post_params)
     if @blog_post.save
@@ -40,7 +47,7 @@ class BlogPostsController < ApplicationController
   private
 
   def blog_post_params
-    params.require(:blog_post).permit(:title, :body, :published_at)
+    params.require(:blog_post).permit(:title, :content, :published_at)
   end
 
   def set_blog_post
