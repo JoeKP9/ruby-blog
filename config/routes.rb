@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   devise_for :users
-  resources :blog_posts
+  resources :blog_posts do
+    get "pub", on: :collection
+  end
 
   # Defines the root path route ("/")
   root "blog_posts#index"

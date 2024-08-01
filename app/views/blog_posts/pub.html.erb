@@ -1,0 +1,11 @@
+<% session[:index] = false %>
+<div>
+    <%= form_with url: "/blog_posts/pub", method: :get, html: {class: "search-form"} do |form| %>
+
+        <%= form.label :search, "Search:   " %>
+        <%= form.text_field :search %>
+        <%= form.submit "Search", class: "joes_button topmargin" %>
+
+    <% end %>
+</div>
+<%= render partial: "blog_index" %>

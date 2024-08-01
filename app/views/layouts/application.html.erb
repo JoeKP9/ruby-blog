@@ -13,19 +13,30 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+    
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
 
-  <body class="prose mx-auto text-center mb-10">
+  <body class="prose mx-auto text-center mb-7">
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
-    <div>
-      <%= button_to "Home", root_path, method: :get, class: "joes_button" %>
+    <div class="top-menu-small">
+      <i id="bars" class="fa-solid fa-bars nyc-bars nyc-bg-yellow" onclick="show()"></i>
+    </div>
+
+    <div class="top-menu" id="top-menu">
+      <% if session[:index] %>
+        <%= button_to "Home", root_path, method: :get, class: "joes_button" %>
+      <% else %>
+        <%= button_to "Home", pub_blog_posts_path, method: :get, class: "joes_button" %>
+      <% end %>
       <% if user_signed_in? %>
         <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "joes_button" %>
         <%= button_to "Profile", edit_user_registration_path, method: :get, class: "joes_button" %>
@@ -34,6 +45,8 @@
         <%= button_to "Log in", new_user_session_path, method: :get, class: "joes_button" %>
         <%= button_to "Sign up", new_user_registration_path, method: :get, class: "joes_button" %>
       <% end %>
+      <i id="X-mobile" class="fa-regular fa-circle-xmark" onclick="hide()"></i>
+
     </div>
 
     <%= yield %>

@@ -1,16 +1,11 @@
+<% session[:index] = true %>
+<div>
+    <%= form_with url: root_path, method: :get, html: {class: "search-form"} do |form| %>
 
-<h1>My blog</h1>
-<% @blog_posts.each do |blog_post| %>
-    <div class="BlogBox rounded-md bg-gray-100">
-        <% if blog_post.draft? %>
-            <div class="rounded-md bg-red-100"><h3 class="text-red-400 BlogBoxTitle">Draft:</h3>
-        <% elsif blog_post.scheduled? %>
-            <div class="rounded-md bg-blue-100"><h3 class="text-blue-400 BlogBoxTitle">Scheduled for: <%= blog_post.published_at %></h3>
-        <% end %>
-        <h2 class="BlogBoxTitle" ><%= link_to blog_post.title, blog_post %></h2>
-        <%= blog_post.content %>
-    </div>
-    </div>
-<% end %>
+        <%= form.label :search, "Search:   " %>
+        <%= form.text_field :search %>
+        <%= form.submit "Search", class: "joes_button topmargin" %>
 
-<%== pagy_nav(@Pagy) if @Pagy.pages > 1 %>
+    <% end %>
+</div>
+<%= render partial: "blog_index" %>

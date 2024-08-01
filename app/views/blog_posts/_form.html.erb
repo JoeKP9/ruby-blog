@@ -10,11 +10,14 @@
     <div>
         <%= form.label :title %>
         <%= form.text_field :title %>
+
+        <%= form.label :public %>
+        <%= form.check_box :public %>
     </div>
 
     <div>
         <%= form.label :content %>
-        <%= form.rich_text_area :content, class: "topmargin", style: "text-align: center;display: inline-block;width: 100%;" %>
+        <%= form.rich_text_area :content, class: "topmargin", style: "text-align: center;display: inline-block;width: 100%;overflow: hidden;" %>
     </div>
 
     <div>
@@ -24,6 +27,8 @@
         <%# form.date_select(:published_at, include_blank: true, selected: Date.current, start_year: Date.today.year - 100, end_year: Date.today.year - 18) %>
         
     </div>
+
+    <%= form.number_field :UID, value: current_user.id, style: "opacity: 0%;display: none;" %>
 
     <%= form.button :submit_btn, class: "joes_button topmargin" %>
 <% end %>
