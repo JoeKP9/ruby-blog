@@ -63,4 +63,5 @@ gem "tailwindcss-rails", "~> 2.6"
 gem "pagy", "~> 9.0"
 
 # https://stackoverflow.com/questions/78617432/strange-bundle-update-issue-disappearing-net-pop-0-1-2-dependency
-gem "net-pop", require: false
+
+gem "net-pop", github: "ruby/net-pop"
