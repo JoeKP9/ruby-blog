@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-    <% if current_page?(root_path) %>
+    <% if current_page?(root_path) || !current_page?(pub_blog_posts_path) %>
         <h1 class="page-header"><span class="selected">My blog</span><span style="font-weight: 200;"class="line"> | </span> <%= link_to "Public blog", pub_blog_posts_path, class: "not_selected" %></h1>
     <% else %>
         <h1 class="page-header"><%= link_to "My blog", root_path, class: "not_selected" %> <span style="font-weight: 200;"class="line"> | </span><span class="selected">Public blog</span></h1>
@@ -9,42 +9,18 @@
 <% end %>
 <% if @blog_posts.length > 0 %>
     <% @blog_posts.each do |blog_post| %>
-        <% if user_signed_in? %>
-            <% if blog_post.draft? %>
-                <div class="BlogBox rounded-md bg-red-100"><h3 class="text-red-400 BlogBoxTitle">Draft:</h3>
-            <% elsif blog_post.scheduled? %>
-                <div class="BlogBox rounded-md bg-blue-100"><h3 class="text-blue-400 BlogBoxTitle">Scheduled for: <%= blog_post.published_at %></h3>
-            <% elsif blog_post.myPost?(blog_post, @current_user.id) && current_page?(pub_blog_posts_path) && blog_post.edited? %>
-                <div class="BlogBox rounded-md bg-green-100">
-                    <i class="fa-regular fa-pen-to-square private-icon">edited</i>
-            <% elsif blog_post.myPost?(blog_post, @current_user.id) && current_page?(pub_blog_posts_path) %>
-                <div class="BlogBox rounded-md bg-green-100">
-            <% elsif blog_post.private? && blog_post.edited? %>
-                <div class="BlogBox rounded-md bg-gray-200">
-                    <div class="private-icon" style="display:flex;flex-direction:column-reverse;align-items: flex-end;">
-                        <i class="fa-solid fa-lock"></i>
-                        <i class="fa-regular fa-pen-to-square"> edited</i>
-                    </div>
-            <% elsif blog_post.private? %>
-                <div class="BlogBox rounded-md bg-gray-200">
-                    <i class="fa-solid fa-lock private-icon"></i>
-            <% elsif blog_post.edited? %>
-                <div class="BlogBox rounded-md bg-gray-100">
-                    <i class="fa-regular fa-pen-to-square private-icon">edited</i>
-            <% else %>
-                <div class="BlogBox rounded-md bg-gray-100">
-            <% end %>
+        <div class="BlogBox rounded-md <%=blog_post_colour(blog_post, current_page?(pub_blog_posts_path), current_user)%>">
+            <% if blog_post.draft? %><h3 class="text-red-400 BlogBoxTitle">Draft:</h3><% end %>
+            <% if blog_post.scheduled? %><h3 class="text-blue-400 BlogBoxTitle">Scheduled for: <%= blog_post.published_at %></h3><% end %>
+            <div class="private-icon" style="display:flex;flex-direction:column-reverse;align-items: flex-end;">
+            <% if blog_post.private? %><i class="fa-solid fa-lock"></i><% end %> 
+            <% if blog_post.edited? %><i class="fa-regular fa-pen-to-square"> edited</i><% end %>
+            </div>
+
             <h5 style="position:absolute;" class="time-stamp"> <%= blog_post.published_at.to_s[0,10] %> </h5>
             <h2 class="BlogBoxTitle" ><%= link_to blog_post.title, blog_post %></h2>
             <%= blog_post.content %>
-            </div>
-        <% else %>
-            <div class="BlogBox rounded-md bg-gray-100">
-                <h5 style="position:absolute;" class="time-stamp"> <%= blog_post.published_at.to_s[0,10] %> </h5>
-                <h2 class="BlogBoxTitle" ><%= link_to blog_post.title, blog_post %></h2>
-                <%= blog_post.content %>
-            </div>
-        <% end %>
+        </div>
     <% end %>
 
     <%== pagy_nav(@Pagy) if @Pagy.pages > 1 %>

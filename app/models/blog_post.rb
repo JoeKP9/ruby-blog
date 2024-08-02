@@ -6,7 +6,9 @@ class BlogPost < ApplicationRecord
   validates :content, presence: true
 
   scope :sorted, -> {order(arel_table[:published_at].desc.nulls_first).order(updated_at: :desc)}
-  scope :search, ->(text) {sorted.where("title like ?", "%"+text.to_s+"%").or(sorted.where("UID like ?", "%"+text.to_s+"%")).or(sorted.where("UID like ?", User.where("username like ?", "%"+text.to_s+"%").ids[0]))}
+  scope :search, ->(text) {sorted.where("title like ?", "%"+text.to_s+"%")
+  .or(sorted.where("UID like ?", "%"+text.to_s+"%"))
+  .or(sorted.where("UID like ?", User.where("username like ?", "%"+text.to_s+"%").ids[0]))}
   # scope :sorted, -> {order(published_at: :desc, updated_at: :asc)}
   scope :draft, -> {where(published_at: nil)}
   scope :published, -> {where("published_at <= ?", Time.current)}
@@ -18,10 +20,6 @@ class BlogPost < ApplicationRecord
   
   def scheduled?
     published_at? && published_at > Time.current
-  end
-
-  def myPost?(blog_post, current_user_id)
-    blog_post.UID == current_user_id
   end
 
   def private?

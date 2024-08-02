@@ -5,7 +5,7 @@ class BlogPostsController < ApplicationController
   
   def index
     @blog_posts = BlogPost.sorted
-    @published_blog_posts = BlogPost.published.sorted
+    @published_blog_posts = BlogPost.published.sorted.search(params[:search])
     @searched_blog_posts = BlogPost.sorted.search(params[:search])
     
     if user_signed_in?
@@ -18,13 +18,9 @@ class BlogPostsController < ApplicationController
   end
 
   def pub
-    search_title = "id 2"
-
     @searched_blog_posts = BlogPost.published.search(params[:search])
 
-    @published_blog_posts = BlogPost.published.sorted
     @Pagy, @blog_posts = pagy(@searched_blog_posts.where(public: true)) 
-    # @Pagy, @blog_posts = pagy(@published_blog_posts.where(UID: 2)) searched_blog_posts params[:search_title]
   rescue Pagy::OverflowError
     redirect_to pub_blog_posts_path(page: 1)
   end

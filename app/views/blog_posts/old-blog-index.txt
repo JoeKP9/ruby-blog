@@ -1,0 +1,25 @@
+<% if blog_post.draft? %>
+    <div class="BlogBox rounded-md bg-red-100"><h3 class="text-red-400 BlogBoxTitle">Draft:</h3>
+<% elsif blog_post.scheduled? %>
+    <div class="BlogBox rounded-md bg-blue-100"><h3 class="text-blue-400 BlogBoxTitle">Scheduled for: <%= blog_post.published_at %></h3>
+<% elsif blog_post.myPost?(blog_post, @current_user.id) && current_page?(pub_blog_posts_path) && blog_post.edited? %>
+    <div class="BlogBox rounded-md bg-green-100">
+        <i class="fa-regular fa-pen-to-square private-icon">edited</i>
+<% elsif blog_post.myPost?(blog_post, @current_user.id) && current_page?(pub_blog_posts_path) %>
+    <div class="BlogBox rounded-md bg-green-100">
+<% elsif blog_post.private? && blog_post.edited? %>
+    <div class="BlogBox rounded-md bg-gray-200">
+        <div class="private-icon" style="display:flex;flex-direction:column-reverse;align-items: flex-end;">
+            <i class="fa-solid fa-lock"></i>
+            <i class="fa-regular fa-pen-to-square"> edited</i>
+        </div>
+<% elsif blog_post.private? %>
+    <div class="BlogBox rounded-md bg-gray-200">
+        <i class="fa-solid fa-lock private-icon"></i>
+<% elsif blog_post.edited? %>
+    <div class="BlogBox rounded-md bg-gray-100">
+        <i class="fa-regular fa-pen-to-square private-icon">edited</i>
+<% else %>
+    <div class="BlogBox rounded-md bg-gray-100">
+<% end %>
+
