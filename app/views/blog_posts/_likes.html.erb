@@ -1,0 +1,10 @@
+
+<% pre_like = @blog_post.likes.find { |like| like.user_id == current_user.id} %>
+<%= turbo_frame_tag @blog_post, :likes do %>
+    Likes: <%= @blog_post.likes.count %>
+    <% if pre_like %>
+        <%= button_to "Unlike", destroy_blog_post_like_path(@blog_post), method: :delete, class: "joes_button" %>
+    <% else %>
+        <%= button_to "Like", new_blog_post_like_path(@blog_post), method: :post, class: "joes_button" %>
+    <% end %>
+<% end %>

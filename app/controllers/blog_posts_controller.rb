@@ -25,6 +25,12 @@ class BlogPostsController < ApplicationController
     redirect_to pub_blog_posts_path(page: 1)
   end
 
+  # def like
+  #   @blog_post.like(@blog_post, @current_user)
+
+  #   render partial: "likes", locals: {blog_post: @blog_post}, content_type: "text/html", status: 500
+  # end
+
   def show
     @blog_UID = @blog_post.UID
     @username = User.find(@blog_UID).username

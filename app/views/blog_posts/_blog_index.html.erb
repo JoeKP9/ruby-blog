@@ -10,9 +10,10 @@
 <% if @blog_posts.length > 0 %>
     <% @blog_posts.each do |blog_post| %>
         <div class="BlogBox rounded-md <%=blog_post_colour(blog_post, current_page?(pub_blog_posts_path), current_user)%>">
+            <h5 style="display:flex;place-self:flex-start;margin:0px;padding:0px;">Likes: <%= blog_post.likes.count %></h5>
             <% if blog_post.draft? %><h3 class="text-red-400 BlogBoxTitle">Draft:</h3><% end %>
             <% if blog_post.scheduled? %><h3 class="text-blue-400 BlogBoxTitle">Scheduled for: <%= blog_post.published_at %></h3><% end %>
-            <div class="private-icon" style="display:flex;flex-direction:column-reverse;align-items: flex-end;">
+            <div class="private-icon" style="display:flex;flex-direction:column-reverse;align-items:flex-end;">
             <% if blog_post.private? %><i class="fa-solid fa-lock"></i><% end %> 
             <% if blog_post.edited? %><i class="fa-regular fa-pen-to-square"> edited</i><% end %>
             </div>

@@ -12,7 +12,12 @@ Rails.application.routes.draw do
   devise_for :users
   resources :blog_posts do
     get "pub", on: :collection
+    # resources :likes
   end
+
+  post "/blog_posts/:id/like", to: "likes#create", as: :new_blog_post_like
+  delete "/blog_posts/:id/destroy_like", to: "likes#destroy", as: :destroy_blog_post_like
+
 
   # Defines the root path route ("/")
   root "blog_posts#index"

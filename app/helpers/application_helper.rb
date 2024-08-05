@@ -9,4 +9,16 @@ module ApplicationHelper
       "bg-gray-100"
   end
 
+  def like_button_text(blog_post, current_user)
+    if blog_post.liked_by?(blog_post, current_user)
+      return "Unlike"
+    end
+    return "Like"
+    # if liked = current_user.liked_posts.split(",").include?(blog_post.id)
+    #   return("Unlike")
+    # else
+    #   return("Like")
+    # end
+  end
+
 end
