@@ -60,7 +60,7 @@ gem "devise", "~> 4.9"
 
 gem "tailwindcss-rails", "~> 2.6"
 
-gem "pagy", "~> 9.0"
+gem "pagy", "~> 9.1"
 
 # https://stackoverflow.com/questions/78617432/strange-bundle-update-issue-disappearing-net-pop-0-1-2-dependency
 
